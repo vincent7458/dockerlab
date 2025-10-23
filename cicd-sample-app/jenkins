@@ -1,5 +1,6 @@
 properties([pipelineTriggers([pollSCM('* * * * *')])])
 
+pipeline {
   stages {
     stage('Preparation') {
       steps {
