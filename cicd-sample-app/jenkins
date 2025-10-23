@@ -2,7 +2,7 @@ properties([pipelineTriggers([pollSCM('* * * * *')])])
 
 pipeline {
   agent any
-// agent any → Voer de pipeline uit op eender welke vrije Jenkins-machine
+// agent any → Voer de pipeline uit op eender welke vrije Jenkins-machine, agent moet er bij staan!
 
   stages {
     stage('Preparation') {
