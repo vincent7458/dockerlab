@@ -2,6 +2,7 @@ properties([pipelineTriggers([pollSCM('* * * * *')])])
 
 pipeline {
   agent any
+// agent any → Voer de pipeline uit op eender welke vrije Jenkins-machine
 
   stages {
     stage('Preparation') {
@@ -15,6 +16,8 @@ pipeline {
         build job: 'BuildSampleApp', wait: true, propagate: true
       }
     }
+// wait: true: wacht tot die job klaar is
+// propagate: true → Als die job faalt, faalt de hele pipeline meteen ook.
 
     stage('Results') {
       steps {
