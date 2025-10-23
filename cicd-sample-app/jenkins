@@ -1,14 +1,29 @@
-node {
+// Triggert automatisch bij elke push (Poll SCM: elke minuut)
+properties([pipelineTriggers([pollSCM('* * * * *')])])
+
+pipeline {
+  agent any
+
+  stages {
     stage('Preparation') {
-        catchError(buildResult: 'SUCCESS') {
-            sh 'docker stop samplerunning'
-            sh 'docker rm samplerunning'
-        }
+      steps {
+        // Oude container weg (fout negeren als hij niet bestaat)
+        sh 'docker rm -f samplerunning || true'
+      }
     }
+
     stage('Build') {
-        build 'BuildSampleApp'
+      steps {
+        // Gebruik je bestaande Freestyle job
+        build job: 'BuildSampleApp', wait: true, propagate: true
+      }
     }
+
     stage('Results') {
-        build 'TestSampleApp'
+      steps {
+        // Gebruik je bestaande Test job
+        build job: 'TestSampleApp', wait: true, propagate: true
+      }
     }
+  }
 }
