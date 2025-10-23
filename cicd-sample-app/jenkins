@@ -1,9 +1,5 @@
 properties([pipelineTriggers([pollSCM('* * * * *')])])
 
-pipeline {
-  agent any
-// agent any → Voer de pipeline uit op eender welke vrije Jenkins-machine
-
   stages {
     stage('Preparation') {
       steps {
